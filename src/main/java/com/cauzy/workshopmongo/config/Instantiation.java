@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.cauzy.workshopmongo.domain.Post;
 import com.cauzy.workshopmongo.domain.User;
 import com.cauzy.workshopmongo.dto.AuthorDTO;
+import com.cauzy.workshopmongo.dto.CommentDTO;
 import com.cauzy.workshopmongo.repository.PostRepository;
 import com.cauzy.workshopmongo.repository.UserRepository;
 
@@ -38,8 +39,12 @@ public class Instantiation implements CommandLineRunner {
 		
 		repo.saveAll(Arrays.asList(maria,alex,bob));
 		
-		Post post1 = new Post(null, sdf.parse("12/03/2018") , "Partiu viagem", "VOu viajar para sao paulo", new AuthorDTO(maria));
+		Post post1 = new Post(null, sdf.parse("21/03/2018") , "Partiu viagem", "VOu viajar para sao paulo", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018") , "bom dia", "acordei feliz hoje", new AuthorDTO(maria));
+		
+		post1.getComment().add(new CommentDTO("Boa viagem mano", sdf.parse("21/03/2018"), new AuthorDTO(alex)));
+		post1.getComment().add(new CommentDTO("Aproveite", sdf.parse("22/03/2018"), new AuthorDTO(bob)));
+		post2.getComment().add(new CommentDTO("Tenha um otimo dia !", sdf.parse("23/03/2018"), new AuthorDTO(alex)));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
